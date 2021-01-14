@@ -2,6 +2,7 @@ import 'package:todo/objects/ColorChoice.dart';
 import 'package:todo/objects/TodoObject.dart';
 import 'package:flutter/material.dart';
 
+
 List<TodoObject> todos = [
   TodoObject.import("SOME_RANDOM_UUID", "Custom", 1, ColorChoices.choices[0], Icons.alarm, {
     DateTime(2018, 5, 3): [
