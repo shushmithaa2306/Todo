@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:todo/objects/TodoObject.dart';
 import 'package:intl/intl.dart';
 import 'package:todo/CustomCheckboxTile.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:todo/pages/diamond_fab.dart';
 
 class DetailPage extends StatefulWidget {
   DetailPage({@required this.todoObject, Key key}) : super(key: key);
@@ -18,6 +20,8 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
   double barPercent = 0.0;
   Tween<double> animT;
   AnimationController scaleAnimation;
+  final databaseReference = FirebaseDatabase.instance.reference();
+  TextEditingController itemController = new TextEditingController();
 
   @override
   void initState() {
@@ -54,6 +58,17 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
     }
     percentComplete = newPercentComplete;
   }
+
+  void createRecord(){
+  databaseReference.child("1").set({
+    'title': 'Mastering EJB',
+    'description': 'Programming Guide for J2EE'
+  });
+  databaseReference.child("2").set({
+    'title': 'Flutter in Action',
+    'description': 'Complete Programming Guide to learn Flutter'
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -269,6 +284,74 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
               ],
             ),
           ),
+          floatingActionButton: DiamondFab(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: new TextField(
+                        autofocus: true,
+                        decoration: InputDecoration(
+                            border: new OutlineInputBorder(
+                                borderSide: new BorderSide(
+                                    color: Colors.amberAccent)),
+                            labelText: "Item",
+                            hintText: "Item",
+                            contentPadding: EdgeInsets.only(
+                                left: 16.0,
+                                top: 20.0,
+                                right: 16.0,
+                                bottom: 5.0)),
+                        controller: itemController,
+                        style: TextStyle(
+                          fontSize: 22.0,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        keyboardType: TextInputType.text,
+                        textCapitalization: TextCapitalization.sentences,
+                      ),
+                    )
+                  ],
+                ),
+                actions: <Widget>[
+                  ButtonTheme(
+                    //minWidth: double.infinity,
+                    child: RaisedButton(
+                      elevation: 3.0,
+                      onPressed: () {
+                        if (itemController.text.isNotEmpty){
+                           databaseReference.child("1").set({
+                              'title': 'Mastering EJB',
+                              'description': itemController.text
+                            });
+                        }
+                         DateTime _now = DateTime.now();
+                          DateTime today = DateTime(_now.year, _now.month, _now.day);
+                         widget.todoObject.tasks.putIfAbsent(_now, () => [
+                          TaskObject(itemController.text, DateTime(_now.second)),
+                         ]);
+                          itemController.clear();
+                          Navigator.of(context).pop();
+                        },
+                      child: Text('Add'),
+                      color: Colors.red,
+                      textColor: const Color(0xffffffff),
+                    ),
+                  )
+                ],
+              );
+            },
+          );
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.amberAccent,
+      ),
+
         )
       ],
     );
