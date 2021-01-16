@@ -1,6 +1,9 @@
-# todo
+# Todo
 
-A new Flutter application.
+*A new Flutter application written in dart using Flutter SDK.*
+***An application to store the things in your brain to your mobile.***
+*Images of TODO application are shown below:*
+
 
 ## Getting Started
 
