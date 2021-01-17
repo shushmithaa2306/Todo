@@ -6,8 +6,7 @@
 
 Sample images for adding, deleting tasks and also to edit colors.
 <p>
-![works](https://user-images.githubusercontent.com/70652342/104815873-6e32bb80-583d-11eb-8977-a402d85bacbe.jpeg)
-<img src="https://user-images.githubusercontent.com/70652342/104815873-6e32bb80-583d-11eb-8977-a402d85bacbe.jpeg" width="50" height="50">
+<img src="https://user-images.githubusercontent.com/70652342/104815873-6e32bb80-583d-11eb-8977-a402d85bacbe.jpeg" width="200" height="400">
 ![custom](https://user-images.githubusercontent.com/70652342/104815878-75f26000-583d-11eb-918a-adb577ef1458.jpeg)
 ![add task](https://user-images.githubusercontent.com/70652342/104815882-7d196e00-583d-11eb-9e8b-f15bc51f85ec.jpeg)
 
